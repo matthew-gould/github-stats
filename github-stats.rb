@@ -72,7 +72,6 @@ class Github
       rescue
       end
       end
-      # print "User".ljust(20) + "Additions".ljust(20) + "Deletions".ljust(20) + "Changes".ljust(20)
       print "User: #{person}".ljust(20) + "Additions: #{additions}".ljust(20) + "Deletions: #{deletions}".ljust(20) + "Changes: #{changes}".ljust(20)
       puts
     end
