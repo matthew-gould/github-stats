@@ -123,8 +123,8 @@ class Github
 
 end
 
-get_token
-get_organizaiton
+# get_token
+# get_organizaiton
 info = Github.new
 info.members
 info.member_repos
