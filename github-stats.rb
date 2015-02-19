@@ -3,23 +3,24 @@ require 'json'
 require 'pry'
 
 
-def get_token
-  puts "Enter github authorization token(put 'na' if you don't have one): "
-  token = gets.chomp
-    if token = "na"
-      #go to public mode?
-    else
-      return token
-    end
-      if token != "na"
-        puts "Enter your USERNAME: "
-        username = gets.chomp.downcase
-  end
+# def get_token
+#   puts "Enter github authorization token(put 'na' if you don't have one): "
+#   token = gets.chomp
+#     if token == "na"
+#       #go to public mode?
+#     else
+#       return token
+#     end
+#       if token != "na"
+#         puts "Enter your USERNAME: "
+#         username = gets.chomp.downcase
+#       end
+#   end
 
-def get_organization
-  puts "Enter the github organization you'd like to analyze: "
-    org = gets.chomp
-end
+# def get_organization
+#   puts "Enter the github organization you'd like to analyze: "
+#     org = gets.chomp
+# end
 
 TOKEN = "#{token}"
 
@@ -122,6 +123,8 @@ class Github
 
 end
 
+get_token
+get_organizaiton
 info = Github.new
 info.members
 info.member_repos
