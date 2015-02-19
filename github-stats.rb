@@ -3,25 +3,29 @@ require 'json'
 require 'pry'
 
 
-#   def get_token
-#   puts "Enter github authorization token(put 'na' if you don't have one): "
-#     token = gets.chomp
-#       if token = "na"
-#         #go to public mode?
-#       else
-#         return token
-#       end
-#   end
+def get_token
+  puts "Enter github authorization token(put 'na' if you don't have one): "
+  token = gets.chomp
+    if token = "na"
+      #go to public mode?
+    else
+      return token
+    end
+      if token != "na"
+        puts "Enter your USERNAME: "
+        username = gets.chomp.downcase
+  end
 
-# def get_organization
-#   puts "Enter the github organization you'd like to analyze: "
-#     org = gets.chomp
-#     repos org
-# end
+def get_organization
+  puts "Enter the github organization you'd like to analyze: "
+    org = gets.chomp
+end
 
-TOKEN = ""
+TOKEN = "#{token}"
 
-ORG = "TIY-DC-ROR-2015-Jan"
+USERNAME = "#{username}" 
+
+ORG = "#{org}" || "TIY-DC-ROR-2015-Jan"
 
 class Github
   include HTTParty
@@ -33,7 +37,7 @@ class Github
 
   def repos
     url = "https://api.github.com/orgs/#{ORG}/members"
-    HTTParty.get("#{url}", headers: {"Authorization" => "token #{TOKEN}", "User-Agent" => "matthew-gould"})
+    HTTParty.get("#{url}", headers: {"Authorization" => "token #{TOKEN}", "User-Agent" => "#{USERNAME}"})
   end
 
   def members
@@ -46,7 +50,7 @@ class Github
   def member_repos
     @logins.each do |person|
       url = "https://api.github.com/users/#{person}/repos"
-      user_repos = HTTParty.get("#{url}", headers: {"Authorization" => "token #{TOKEN}", "User-Agent" => "matthew-gould"})
+      user_repos = HTTParty.get("#{url}", headers: {"Authorization" => "token #{TOKEN}", "User-Agent" => "#{USERNAME}"})
       @login_repos += user_repos.map {|x| x["url"]}
       additions = 0
       deletions = 0
@@ -54,7 +58,7 @@ class Github
       @login_repos.each do |x|
         begin
         url2 = "#{x}/stats/contributors"
-        user_counts = HTTParty.get("#{url2}", headers: {"Authorization" => "token #{TOKEN}", "User-Agent" => "matthew-gould"})
+        user_counts = HTTParty.get("#{url2}", headers: {"Authorization" => "token #{TOKEN}", "User-Agent" => "#{USERNAME}"})
         user_counts.each do |z|
           if z["author"]["login"] == person
             z["weeks"].each do |y|
@@ -121,5 +125,4 @@ end
 info = Github.new
 info.members
 info.member_repos
-# info.repo_numbers
 # binding.pry
