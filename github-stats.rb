@@ -3,30 +3,26 @@ require 'json'
 require 'pry'
 
 
-# def get_token
-#   puts "Enter github authorization token(put 'na' if you don't have one): "
-#   token = gets.chomp
-#     if token == "na"
-#       #go to public mode?
-#     else
-#       return token
-#     end
-#       if token != "na"
-#         puts "Enter your USERNAME: "
-#         username = gets.chomp.downcase
-#       end
-#   end
+def get_token
+  puts "Enter github authorization token"
+  token = gets.chomp
+end
 
-# def get_organization
-#   puts "Enter the github organization you'd like to analyze: "
-#     org = gets.chomp
-# end
+def user_name
+  puts "Enter your Github username: "
+  gets.chomp
+end
 
-TOKEN = "#{token}"
+def get_organization
+  puts "Enter the github organization you'd like to analyze: "
+    org = gets.chomp
+end
 
-USERNAME = "#{username}" 
+TOKEN = get_token
 
-ORG = "#{org}" || "TIY-DC-ROR-2015-Jan"
+USERNAME = user_name 
+
+ORG = get_organization # "TIY-DC-ROR-2015-Jan"
 
 class Github
   include HTTParty
@@ -77,53 +73,8 @@ class Github
     end
   end
 
-
-
-
-
-#   def member_counts logins, login_repos
-#     additions = 0
-#     deletions = 0
-#     changes = 0
-#     login_repos.each do |x|
-#       url = "#{x}/stats/contributors"
-#       user_counts = HTTParty.get("#{url}", headers: {"Authorization" => "token #{TOKEN}", "User-Agent" => "matthew-gould"})
-#       user_counts.each do |z|
-#       if z["author"]["login"] == person
-#         z["weeks"].each do |y|
-#           additions += y["a"]
-#           deletions += y["d"]
-#           changes += y["c"]
-#         end
-#       end
-#       # puts "#{contributor} had #{additions} additions, #{deletions} deletions, and #{changes} changes."
-#     end
-#   end
-# end
-
-  # def repo_numbers
-  #   additions = 0
-  #   deletions = 0
-  #   changes = 0
-  #   @login_repos.each do |x|
-  #     url = "#{x}/stats/contributors"
-  #     counting = HTTParty.get("#{url}", headers: {"Authorization" => "token #{TOKEN}", "User-Agent" => "matthew-gould"})
-  #     count_this_shit = counting[0]["weeks"]
-  #     count_this_shit.each do |y|
-  #       additions += y["a"]
-  #       deletions += y["d"]
-  #       changes += y["c"]
-  #     binding.pry
-  #     end
-  #   end
-  # end
-
-
-
 end
 
-# get_token
-# get_organizaiton
 info = Github.new
 info.members
 info.member_repos
